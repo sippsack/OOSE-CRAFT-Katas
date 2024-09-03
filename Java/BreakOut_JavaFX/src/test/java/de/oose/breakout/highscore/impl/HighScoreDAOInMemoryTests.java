@@ -1,7 +1,7 @@
 package de.oose.breakout.highscore.impl;
 
 import de.oose.breakout.highscore.HighScore;
-import de.oose.breakout.highscore.HighScoreDAO;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -12,20 +12,19 @@ import static org.junit.jupiter.api.Assertions.*;
  * TODOs
  * (1) test get high scores ✅
  * (2) test save high score ✅
- * (3) test get high score by name
- *
- * Testdaten aus DB für HighScoreDAOHibernate:
- *
- * INSERT INTO HIGHSCORE VALUES(1,'2019-01-18','Heinz',3000)
- * INSERT INTO HIGHSCORE VALUES(2,'2019-01-18','EasyMock',2000)
- * INSERT INTO HIGHSCORE VALUES(3,'2019-01-18','jMock',1000)
- * INSERT INTO HIGHSCORE VALUES(22,'2019-07-17','Hermann',3000)
+ * (3) test get high score by name ✅
+ * (4) test auto generated id
  */
 public class HighScoreDAOInMemoryTests {
+    private HighScoreDAOInMemory dao;
+
+    @BeforeEach
+    void setUp() {
+        dao = new HighScoreDAOInMemory();
+    }
 
     @Test
     void testGetHighScores() {
-        HighScoreDAO dao = new HighScoreDAOInMemory();
         List<HighScore> actual = dao.getHighScores();
         assertEquals(4, actual.size());
         assertEquals("Heinz", actual.get(0).getName());
@@ -33,9 +32,21 @@ public class HighScoreDAOInMemoryTests {
 
     @Test
     void testSaveHighScore() {
-        HighScoreDAO dao = new HighScoreDAOInMemory();
         dao.saveHighScore(200, "Dieter Develop");
         assertEquals(5, dao.getHighScores().size());
         assertEquals("Dieter Develop", dao.getHighScores().get(4).getName());
+        // assertEquals(1, dao.getHighScores().get(4).getId());
+    }
+
+    @Test
+    void testGetHighScoreByEmptyName() {
+        HighScore hs1 = dao.getHighScoreByName("");
+        assertNull(hs1);
+    }
+
+    @Test
+    void testGetHighScoreByNameHeinz() {
+        HighScore hs = dao.getHighScoreByName("Heinz");
+        assertNotNull(hs);
     }
 }

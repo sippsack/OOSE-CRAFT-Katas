@@ -29,6 +29,6 @@ public class HighScoreDAOInMemory implements HighScoreDAO {
 
     @Override
     public HighScore getHighScoreByName(String name) {
-        return null;
+        return highScores.stream().filter(hs -> hs.getName().equals(name)).findFirst().orElse(null);
     }
 }
