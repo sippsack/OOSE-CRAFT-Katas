@@ -24,7 +24,7 @@ public class HighScoreDAOInMemory implements HighScoreDAO {
 
     @Override
     public void saveHighScore(int score, String name) {
-
+        highScores.add(new HighScore(score, name));
     }
 
     @Override

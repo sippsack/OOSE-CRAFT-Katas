@@ -11,7 +11,8 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * TODOs
  * (1) test get high scores ✅
- * (2) test save high score
+ * (2) test save high score ✅
+ * (3) test get high score by name
  *
  * Testdaten aus DB für HighScoreDAOHibernate:
  *
@@ -22,12 +23,19 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class HighScoreDAOInMemoryTests {
 
-
-
     @Test
     void testGetHighScores() {
         HighScoreDAO dao = new HighScoreDAOInMemory();
         List<HighScore> actual = dao.getHighScores();
         assertEquals(4, actual.size());
+        assertEquals("Heinz", actual.get(0).getName());
+    }
+
+    @Test
+    void testSaveHighScore() {
+        HighScoreDAO dao = new HighScoreDAOInMemory();
+        dao.saveHighScore(200, "Dieter Develop");
+        assertEquals(5, dao.getHighScores().size());
+        assertEquals("Dieter Develop", dao.getHighScores().get(4).getName());
     }
 }
