@@ -22,7 +22,7 @@ public class StatisticTool {
 
 	final static Charset ENCODING = StandardCharsets.UTF_8;
 
-	private List<String> fileOperation(String logFile) {
+	protected List<String> fileOperation(String logFile) {
 		Path path = Paths.get(logFile);
 		List<String> logLines = new ArrayList<>();
 		try {
