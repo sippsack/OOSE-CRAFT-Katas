@@ -80,19 +80,15 @@ public class StatisticTool {
 	public String getPrettyStatisticsString() {
 		List<String> logLines = fileOperation("breakoutLog.log");
 
-		// Number of Balls
-		// Calculates Number of Balls from LogFiles
-		// Every Line is checked, if it contains the Ballstring
-		// if it does, c is increased
-		int c = 1;
+		int numberOfBalls = 1;
 
 		for (int i = 0; i < logLines.size(); i++) {
 			if (logLines.get(i).contains("next Ball")) {
-				c++; // no pun intended
+				numberOfBalls++;
 			}
 		}
 
-		return "Time played: " + getTime() + " Minutes\nTiles hit: " + getNumberOfHitTiles() + "\nBalls used: " + c;
+		return "Time played: " + getTime() + " Minutes\nTiles hit: " + getNumberOfHitTiles() + "\nBalls used: " + numberOfBalls;
 	}
 
 	public LocalDateTime convertDateStringToDate(String dateString) {
