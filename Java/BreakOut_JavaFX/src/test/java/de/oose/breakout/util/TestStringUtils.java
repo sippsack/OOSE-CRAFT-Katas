@@ -15,6 +15,7 @@ public class TestStringUtils {
 		assertEquals("2013-03-05 10:07:19,113", extracted);
 	}
 
+	@Test
 	public void stringWithNoDateThrowsException() {
 		String logLine = "[thread applet-de.woock.games.breakout.Breakout.class] INFO  (    Tile.java)     - create token: Token [character=N, points=40]";
 		assertThrows(IllegalArgumentException.class, () -> StringUtils.extractTimeStringFromLogline(logLine));
